@@ -33,7 +33,6 @@ class CalculateRequiredCaloriesFragment : BaseFragment<FragmentCalculateRequired
     var gender: Char? = null
 
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun setUp() {
         visibleResultText(false)
         initValues()
@@ -41,13 +40,11 @@ class CalculateRequiredCaloriesFragment : BaseFragment<FragmentCalculateRequired
         resultCalculateRequiredCalories()
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     private fun initValues(){
         visibilityResult = true
         setValueWeight()
         setValueHeight()
         setValueAge()
-        genderSelectedColor()
     }
 
 
@@ -112,11 +109,7 @@ class CalculateRequiredCaloriesFragment : BaseFragment<FragmentCalculateRequired
 
     }
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun genderSelectedColor(
-        onSelectedMaleCardColor:Int = R.color.white,
-        onSelectedMaleTextColor:Int = R.color.primary_color,
-        onSelectedFeMaleCardColor:Int = R.color.white,
-        onSelectedFeMaleTextColor:Int = R.color.primary_color){
+    private fun genderSelectedColor(onSelectedMaleCardColor:Int,onSelectedMaleTextColor:Int,onSelectedFeMaleCardColor:Int,onSelectedFeMaleTextColor:Int) {
         binding.apply {
             cardFemale.setCardBackgroundColor(requireContext().getColor(onSelectedFeMaleCardColor))
             textFemale.setTextColor(requireContext().getColor(onSelectedFeMaleTextColor))
@@ -124,6 +117,7 @@ class CalculateRequiredCaloriesFragment : BaseFragment<FragmentCalculateRequired
             cardMale.setCardBackgroundColor(requireContext().getColor(onSelectedMaleCardColor))
             textMale.setTextColor(requireContext().getColor(onSelectedMaleTextColor))
             imageMale.setColorFilter(requireContext().getColor(onSelectedMaleTextColor))
+
         }
     }
 
@@ -160,7 +154,6 @@ class CalculateRequiredCaloriesFragment : BaseFragment<FragmentCalculateRequired
     }
 
 
-    @SuppressLint("NewApi")
     private fun resultCalculateRequiredCalories() {
 
             binding.buttonCalculateRequiredCalories.setOnClickListener {
@@ -176,7 +169,7 @@ class CalculateRequiredCaloriesFragment : BaseFragment<FragmentCalculateRequired
                             height = height.toDouble(),
                             age = age,
                             gender = gender!!,
-                        )
+                        );
                         visibilityResult = false
                         binding.resultCalculateRequiredCalories.text = result.toString()
 
@@ -223,9 +216,9 @@ class CalculateRequiredCaloriesFragment : BaseFragment<FragmentCalculateRequired
 
     @SuppressLint("NewApi")
     fun changeTheme(){
-        val textLabel: Int?
-        val color: Int?
-        val backgroundColor: Int?
+        var textLabel: Int? = null
+        var color: Int? = null
+        var backgroundColor: Int? = null
 
         if(visibilityResult){
             textLabel = R.string.get_your_required_calories
